@@ -1,0 +1,1 @@
+This directory contains the codes for forward dynamic analyses of cable-driven parallel robots with the movement of exit points of cables following the approach presented in https:doi.org/10.2139/ssrn.4386942.
