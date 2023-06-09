@@ -5,6 +5,8 @@
 
 function [eta, deta]=constraints(il, iu, q, dq, tt, tb, so, st, vt, Qf, p, b, th)
 
+% No function calls
+
 % System: 6-3 CDPR
 
 % Global variables -- required
@@ -37,7 +39,7 @@ for ii=il:iu
      	tt(:,ii)=[0;0;r(ii)*dq(ii)];
      	tti=tt(:,ii);
         
-    	%%v
+    	%v linear velocity
      	tb(:,ii)=[0;0;p(ii)*dq(ii)];
      	vt(:,ii)=[0;-salp*p(ii)*dq(ii);calp*p(ii)*dq(ii)]-Qi(:,1)*di(2)*tti(3)+Qi(:,2)*di(1)*tti(3);
         
