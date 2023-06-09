@@ -1,4 +1,5 @@
-% RSSLM runfor module. This module perform the simulation.
+% RSSLM-CDPR-Kinetostatics runfor module. This module perform the simulation.
+
 % Contibutors: Dr. Teja Krishna Mamidi, Prof. Sandipan Bandyopadhyay @IIT Madras, 
 % Acknowledgments: Dr. Suril Shah and Prof. S. K. Saha @IIT Delhi
 
