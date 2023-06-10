@@ -3,11 +3,11 @@
 % Contibutors: Dr. Teja Krishna Mamidi, Prof. Sandipan Bandyopadhyay @IIT Madras, 
 % Acknowledgments: Dr. Suril Shah and Prof. S. K. Saha @IIT Delhi
 
-function [th, b]=constraints_init(th, b)
-
 % No function calls
 
 % System: 6-3 CDPR
+
+function [th, b]=constraints_init(th, b)
 
 % Global variables -- required
 global n alp a bt r dx dy dz tt tb so st vt Qf p q dq crmp;
