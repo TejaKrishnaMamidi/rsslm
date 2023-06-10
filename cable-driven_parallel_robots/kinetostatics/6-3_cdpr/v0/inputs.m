@@ -13,7 +13,7 @@ function []=inputs()
 global n ali ni nei nen; 
 
 % Global variables -- defined
-global dof type alp a b th bt r dx dy dz m g Icxx Icyy Iczz Icxy Icyz Iczx aj al ka ktr ca ctr fltr crmp invmp cdmp global nls1 nus1 nls2 nus2 nls3 nus3 nls4 nus4 nls5 nus5 nls6 nus6 nls7 nus7 nls7p2 nls7p3;
+global dof type alp a b th bt r dx dy dz m g Icxx Icyy Iczz Icxy Icyz Iczx aj al ka ktr ca ctr fltr crmp invmp cdmp nls1 nus1 nls2 nus2 nls3 nus3 nls4 nus4 nls5 nus5 nls6 nus6 nls7 nus7 nls7p2 nls7p3;
 
 % Degrees of freedom of the system
 dof = n-18;
