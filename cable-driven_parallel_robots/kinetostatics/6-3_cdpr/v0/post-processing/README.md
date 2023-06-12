@@ -1,5 +1,7 @@
 # Visualisation
 
+## Animation
+
 To execute the **animate.m** file, the following files are required.
 1. data.m -- copy from the parent directory
 2. inputs.m -- copy from the parent directory
