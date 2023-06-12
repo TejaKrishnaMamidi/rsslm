@@ -1,5 +1,4 @@
-**animate.m**
-To execute the above-mentioned file, the following files are required.
+To execute the **animate.m** file, the following files are required.
 1. data.m
 2. inputs.m
 3. posvelacc.dat
