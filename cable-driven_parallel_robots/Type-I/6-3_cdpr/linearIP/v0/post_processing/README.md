@@ -9,6 +9,7 @@ To execute the **animate.m** file, the following files are required.
 2. var_length.m
 3. for_kine.m
 4. posvelacc.dat -- copy from the parent directory after execution
+5. elLen.dat -- copy from the parent directory after execution
 
 It can generate the following files if required.
 1. cablekdatan20.dat -- an array of points on the kth cable
