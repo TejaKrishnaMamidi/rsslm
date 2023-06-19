@@ -1,4 +1,4 @@
-% RSSLM-CDPR-Type-I inv3by3 module. A pre-computed symbolic expressions of the inverse of a non-singular matrix of dimension 3 by 3 is used for determining the matrix inverse.
+% RSSLM-CDPR-Type-I (or Kinetostatics) inv3by3 module. A pre-computed symbolic expressions of the inverse of a non-singular matrix of dimension 3 by 3 is used for determining the matrix inverse.
 
 % Contributors: Dr. Teja Krishna Mamidi, Prof. Sandipan Bandyopadhyay @IIT Madras, 
 % Acknowledgments: Dr. Suril Shah and Prof. S. K. Saha @IIT Delhi
