@@ -1,28 +1,28 @@
-% RSSLM-CDPR-Kinetostatics jacobian_init module. The entries of constraint Jacobian matrix are computed here.
+% RSSLM-CDPR-Type-I jacobian_init module. The entries of constraint Jacobian matrix are computed here.
 
-% Contibutors: Dr. Teja Krishna Mamidi, Prof. Sandipan Bandyopadhyay @IIT Madras, 
-% Acknowledgments: Dr. Suril Shah and Prof. S. K. Saha @IIT Delhi
+% Contributors: Dr. Teja Krishna Mamidi, Prof. Sandipan Bandyopadhyay @IIT Madras, 
+% Acknowledgments: Dr. Suril V. Shah and Prof. S. K. Saha @IIT Delhi
 
 % Function calls to constraints.m and constraints_init.m
 
 function []=jacobian_init()
 
-% System: 6-3 CDPR
+% System: 6-3 CDPR with cable feed
 
 % Global variables -- required
-global b th n q dq tt tb so st vt Qf p;
+global b th n nc q dq tt tb so Qf p;
 global nls1 nls2 nls3 nls4 nls5 nls6 nls7 nus1 nus2 nus3 nus4 nus5 nus6 nus7;
 
-% Global variables -- defined
-global qi dqi J dJ; 
+% Global variables -- defined/modified
+global qi dqi J dJ;
 
 % Current position and velocity
 qi=q;
 dqi=dq;
 
-%% Initialisation
-J = zeros(18,n);
-dJ = zeros(18,n);
+% Initialisation
+J = zeros(nc,n);
+dJ = zeros(nc,n);
 
 % Increment
 h=0.5e-6;
@@ -36,9 +36,9 @@ twoh=h+h;
 % sub-system 1
 for ii = nls1:nus1
     qi(ii)=qi(ii)+h;
-    [eta1,deta1]=constraints(ii, nus1, qi, dqi, tt, tb, so, st, vt, Qf, p, bc, thc);
+    [eta1,deta1]=constraints(ii, nus1, qi, dqi, tt, tb, so, Qf, p, bc, thc);
     qi(ii)=qi(ii)-twoh;
-    [eta2,deta2]=constraints(ii, nus1, qi, dqi, tt, tb, so, st, vt, Qf, p, bc, thc);
+    [eta2,deta2]=constraints(ii, nus1, qi, dqi, tt, tb, so, Qf, p, bc, thc);
     qi(ii)=qi(ii)+h;
     J(:,ii)=invh*(eta1-eta2);
     dJ(:,ii)=invh*(deta1-deta2);
@@ -46,9 +46,9 @@ end
 % sub-system 2
 for ii = nls2:nus2
     qi(ii)=qi(ii)+h;
-    [eta1,deta1]=constraints(ii, nus2, qi, dqi, tt, tb, so, st, vt, Qf, p, bc, thc);
+    [eta1,deta1]=constraints(ii, nus2, qi, dqi, tt, tb, so, Qf, p, bc, thc);
     qi(ii)=qi(ii)-twoh;
-    [eta2,deta2]=constraints(ii, nus2, qi, dqi, tt, tb, so, st, vt, Qf, p, bc, thc);
+    [eta2,deta2]=constraints(ii, nus2, qi, dqi, tt, tb, so, Qf, p, bc, thc);
     qi(ii)=qi(ii)+h;
     J(:,ii)=invh*(eta1-eta2);
     dJ(:,ii)=invh*(deta1-deta2);
@@ -56,9 +56,9 @@ end
 % sub-system 3
 for ii = nls3:nus3
     qi(ii)=qi(ii)+h;
-    [eta1,deta1]=constraints(ii, nus3, qi, dqi, tt, tb, so, st, vt, Qf, p, bc, thc);
+    [eta1,deta1]=constraints(ii, nus3, qi, dqi, tt, tb, so, Qf, p, bc, thc);
     qi(ii)=qi(ii)-twoh;
-    [eta2,deta2]=constraints(ii, nus3, qi, dqi, tt, tb, so, st, vt, Qf, p, bc, thc);
+    [eta2,deta2]=constraints(ii, nus3, qi, dqi, tt, tb, so, Qf, p, bc, thc);
     qi(ii)=qi(ii)+h;
     J(:,ii)=invh*(eta1-eta2);
     dJ(:,ii)=invh*(deta1-deta2);
@@ -66,9 +66,9 @@ end
 % sub-system 4
 for ii = nls4:nus4
     qi(ii)=qi(ii)+h;
-    [eta1,deta1]=constraints(ii, nus4, qi, dqi, tt, tb, so, st, vt, Qf, p, bc, thc);
+    [eta1,deta1]=constraints(ii, nus4, qi, dqi, tt, tb, so, Qf, p, bc, thc);
     qi(ii)=qi(ii)-twoh;
-    [eta2,deta2]=constraints(ii, nus4, qi, dqi, tt, tb, so, st, vt, Qf, p, bc, thc);
+    [eta2,deta2]=constraints(ii, nus4, qi, dqi, tt, tb, so, Qf, p, bc, thc);
     qi(ii)=qi(ii)+h;
     J(:,ii)=invh*(eta1-eta2);
     dJ(:,ii)=invh*(deta1-deta2);
@@ -76,9 +76,9 @@ end
 % sub-system 5
 for ii = nls5:nus5
     qi(ii)=qi(ii)+h;
-    [eta1,deta1]=constraints(ii, nus5, qi, dqi, tt, tb, so, st, vt, Qf, p, bc, thc);
+    [eta1,deta1]=constraints(ii, nus5, qi, dqi, tt, tb, so, Qf, p, bc, thc);
     qi(ii)=qi(ii)-twoh;
-    [eta2,deta2]=constraints(ii, nus5, qi, dqi, tt, tb, so, st, vt, Qf, p, bc, thc);
+    [eta2,deta2]=constraints(ii, nus5, qi, dqi, tt, tb, so, Qf, p, bc, thc);
     qi(ii)=qi(ii)+h;
     J(:,ii)=invh*(eta1-eta2);
     dJ(:,ii)=invh*(deta1-deta2);
@@ -86,9 +86,9 @@ end
 % sub-system 6
 for ii = nls6:nus6
     qi(ii)=qi(ii)+h;
-    [eta1,deta1]=constraints(ii, nus6, qi, dqi, tt, tb, so, st, vt, Qf, p, bc, thc);
+    [eta1,deta1]=constraints(ii, nus6, qi, dqi, tt, tb, so, Qf, p, bc, thc);
     qi(ii)=qi(ii)-twoh;
-    [eta2,deta2]=constraints(ii, nus6, qi, dqi, tt, tb, so, st, vt, Qf, p, bc, thc);
+    [eta2,deta2]=constraints(ii, nus6, qi, dqi, tt, tb, so, Qf, p, bc, thc);
     qi(ii)=qi(ii)+h;
     J(:,ii)=invh*(eta1-eta2);
     dJ(:,ii)=invh*(deta1-deta2);
@@ -100,9 +100,9 @@ J(:,nls7+2) = [0; -1; 0; 0; -1; 0; 0; -1; 0; 0; -1; 0; 0; -1; 0; 0; -1; 0];
 J(:,nls7) = [0; 0; -1; 0; 0; -1; 0; 0; -1; 0; 0; -1; 0; 0; -1; 0; 0; -1];
 for ii = (nls7+3):nus7
     qi(ii)=qi(ii)+h;
-    [eta1,deta1]=constraints(ii, -1, qi, dqi, tt, tb, so, st, vt, Qf, p, bc, thc);
+    [eta1,deta1]=constraints(ii, -1, qi, dqi, tt, tb, so, Qf, p, bc, thc);
     qi(ii)=qi(ii)-twoh;
-    [eta2,deta2]=constraints(ii, -1, qi, dqi, tt, tb, so, st, vt, Qf, p, bc, thc);
+    [eta2,deta2]=constraints(ii, -1, qi, dqi, tt, tb, so, Qf, p, bc, thc);
     qi(ii)=qi(ii)+h;
     J(:,ii)=invh*(eta1-eta2);
     dJ(:,ii)=invh*(deta1-deta2);
