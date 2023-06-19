@@ -1,7 +1,7 @@
 The initial version of the codes.
 
 Execute the file 'runfor.m' in MATLAB.
-Upon sucessful completion it will create the following files for post processing the results.
+Upon successful completion, it will create the following files for post-processing the results.
 1. statevar.dat -- an array of positions and velocities of joints.
 2. timevar.dat -- an array of time instances at which the positions and velocities are recorded in the above file.
 3. posvelacc.dat -- an array of time, positions, velocities, and accelerations of the joints.
