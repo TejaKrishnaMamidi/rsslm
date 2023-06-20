@@ -13,7 +13,7 @@ global dx dy dz m g Icxx Icyy Iczz Icxy Icyz Iczx aj al ka ktr ca ctr fltr;
 global crmp invmp cdmp rl0;
 global nls1 nus1 nls2 nus2 nls3 nus3 nls4 nus4 nls5 nus5 nls6 nus6 nls7 nus7 nls7p2 nls7p3;
 
-% System: 6-3 CDPR with each cable modelled by multiple modified rigid finite elements (MRFEs) with cable feed
+% System: 6-3 CDPR with each cable modelled by multiple modified rigid finite elements (MRFEs) with (sinusoidal) cable feed
 
 % Number of MRFEs associated with each sub-system (cable) of the 6-3 CDPR. 
 nen = 20;
