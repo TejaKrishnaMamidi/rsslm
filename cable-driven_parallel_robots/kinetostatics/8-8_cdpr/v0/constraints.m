@@ -5,7 +5,7 @@
 
 function [eta, deta]=constraints(il, iu, q, dq, tt, tb, so, st, vt, Qf, p, b, th)
 
-% No function calls
+% Depends on correctionYcoordinate
 
 % System: 8-8 CDPR
 
