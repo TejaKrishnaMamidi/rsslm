@@ -11,4 +11,6 @@ To execute the **animate.m** file, the following files are required.
 
 It will generate the following files.
 1. cablekdatan20.dat -- an array of points on the kth cable
-2. timedatan20.dat -- an array of time instances at which the above data is recorded.
+2. posedatan20.dat -- an array of positions of the moving platform
+3. orientdatan20.dat -- an array of XYZ Euler angles representing the orientations of the moving platform.
+4. timedatan20.dat -- an array of time instances at which the above data is recorded.
