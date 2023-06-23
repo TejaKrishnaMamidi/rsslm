@@ -3,8 +3,6 @@
 % Contributors: Dr. Teja Krishna Mamidi, Prof. Sandipan Bandyopadhyay @IIT Madras, 
 % Acknowledgments: Dr. Suril V. Shah and Prof. S. K. Saha @IIT Delhi
 
-function [eta, deta]=constraints(il, iu, q, dq, tt, tb, so, Qf, p, b, th)
-
 % Function call to correctionYcoordinate
 
 % System: 8-8 CDPR with (linear or sinusoidal) cable feed
@@ -18,12 +16,12 @@ global mpa mpv;
 
 % Computation of the change in the constraint equations
 for ii=il:iu
-	%p(ii)=1-r(ii);
-	th(ii)=th(ii)*p(ii)+q(ii)*r(ii);
-	b(ii)=b(ii)*r(ii)+q(ii)*p(ii);
-	cth=cos(th(ii)); calp=cos(alp(ii));
-	sth=sin(th(ii)); salp=sin(alp(ii));
-	if bt(ii)==0 %When parent of the link is ground link	
+    %p(ii)=1-r(ii);
+    th(ii)=th(ii)*p(ii)+q(ii)*r(ii);
+    b(ii)=b(ii)*r(ii)+q(ii)*p(ii);
+    cth=cos(th(ii)); calp=cos(alp(ii));
+    sth=sin(th(ii)); salp=sin(alp(ii));
+    if bt(ii)==0 %When parent of the link is ground link	
     	Qi=[cth,      -sth,       0
        	calp*sth,  calp*cth, -salp
        	salp*sth,  salp*cth,  calp];
@@ -70,7 +68,7 @@ for ii=il:iu
      	tb(:,ii)=Qi.'*(tb(:,bt(ii))+ttbixaim)+[0;0;p(ii)*dq(ii)];
      	%ttixdi=[tti(2)*di(3)-di(2)*tti(3);-(tti(1)*di(3)-di(1)*tti(3));tti(1)*di(2)-di(1)*tti(2)];
      	%vt(:,ii)=Qf(:,:,ii)*(tb(:,ii)+ttixdi);
-	end
+    end
 end
 
 % Only if the variables q(n-6) to q(n) are varied the following computations are done.  
@@ -179,4 +177,3 @@ eta=[eta1;eta2;eta3;eta4;eta5;eta6;eta7;eta8];
 deta=[deta1;deta2;deta3;deta4;deta5;deta6;deta7;deta8];
 
 end
-
