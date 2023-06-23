@@ -1,1 +1,1 @@
-Simulation of the 8-8 CDPR with sinusoidal feed and retreival of cables
+Performs a simulation of the 8-8 CDPR with sinusoidal feed and retrieval of cables
