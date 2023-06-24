@@ -1,4 +1,4 @@
-% RSSLM-CDPR-Type-II-KinematicIp data module. This module contains the information of geometric, elastic, and inertia parameters of the model of the mechanical system under study.
+% RSSLM-CDPR-Type-II-KinematicIp data module. TThis module contains the information of the number of elements used for modelling a cable, their lengths, and the total number of links of the analysed multi-body system.
 
 % Contributors: Dr. Teja Krishna Mamidi, Prof. Sandipan Bandyopadhyay @IIT Madras, 
 % Acknowledgments: Dr. Suril Shah and Prof. S. K. Saha @IIT Delhi
