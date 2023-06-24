@@ -1,0 +1,117 @@
+% RSSLM-CDPR-Type-II-KinematicIp constraints_init module. The variables that do not change with respect to a configuration variable while computing the values of constraint functions and their derivatives are initialised here.
+
+% Contributors: Dr. Teja Krishna Mamidi, Prof. Sandipan Bandyopadhyay @IIT Madras, 
+% Acknowledgments: Dr. Suril V. Shah and Prof. S. K. Saha @IIT Delhi
+
+% No function calls
+
+% System: 4-4 CDPR with movements of cables' exit points
+
+function [th, b]=constraints_init(th, b)
+
+% Global variables -- required
+global nus5 alp a bt r q dq;
+
+% Global variables -- defined/modified
+global tt tb so Qf p mpa mpv;
+
+%%Initialization
+tt=zeros(3,nus5);
+tb=zeros(3,nus5);
+so=zeros(3,nus5);
+Qf=zeros(3,3,nus5);
+p=zeros(nus5,1);
+
+%% Positions and velocities of the distal points on the links of cables
+for i=1:(nus5-6)
+    p(i)=1-r(i);
+    th(i)=th(i)*p(i)+q(i)*r(i);
+    b(i)=b(i)*r(i)+q(i)*p(i);
+    cth=cos(th(i)); calp=cos(alp(i));
+    sth=sin(th(i)); salp=sin(alp(i));
+    if bt(i)==0 %When parent of the link is ground link
+        Qi=[cth,      -sth,       0
+            calp*sth,  calp*cth, -salp
+            salp*sth,  salp*cth,  calp];
+        Qf(:,:,i)=Qi;
+        
+        %Positions
+        %di=[dx(i);dy(i);dz(i)]+[dx(i);dy(i);dz(i)];
+        aim=[a(i)
+            -b(i)*salp
+            b(i)*calp];
+        so(:,i)=aim;
+        %st(:,i)=so(:,i)+Qf(:,:,i)*di;
+        
+        %w angular velocity
+        tt(:,i)=[0;0;r(i)*dq(i)];
+        %tti=tt(:,i);
+        
+        %v linear velocity
+        tb(:,i)=[0;0;p(i)*dq(i)];
+        %vt(:,i)=[0;-salp*p(i)*dq(i);calp*p(i)*dq(i)]-Qi(:,1)*di(2)*tti(3)+Qi(:,2)*di(1)*tti(3);
+        
+    else %Calculation for the links other than those attached with ground
+        Qi=[cth,      -sth,       0
+            calp*sth,  calp*cth, -salp
+            salp*sth,  salp*cth,  calp];
+        Qf(:,:,i)=Qf(:,:,bt(i))*Qi;
+        
+        %position vector from origin of link to origin of next link
+        aim=[a(i)
+            -b(i)*salp
+            b(i)*calp];
+        %di=[dx(i);dy(i);dz(i)]+[dx(i);dy(i);dz(i)];
+        
+        %Positions
+        so(:,i)=so(:,bt(i))+Qf(:,:,bt(i))*aim;
+        %st(:,i)=so(:,i)+Qf(:,:,i)*di;
+        
+        %w angular velocity
+        ttbi=tt(:,bt(i));
+        tt(:,i)=Qi'*ttbi+[0;0;r(i)*dq(i)];
+        %tti=tt(:,i);
+        %v  linear velocity
+        ttbixaim=[ttbi(2)*aim(3)-aim(2)*ttbi(3);-(ttbi(1)*aim(3)-aim(1)*ttbi(3));ttbi(1)*aim(2)-aim(1)*ttbi(2)];
+        tb(:,i)=Qi.'*(tb(:,bt(i))+ttbixaim)+[0;0;p(i)*dq(i)];
+        %ttixdi=[tti(2)*di(3)-di(2)*tti(3);-(tti(1)*di(3)-di(1)*tti(3));tti(1)*di(2)-di(1)*tti(2)];
+        %vt(:,i)=Qf(:,:,i)*(tb(:,i)+ttixdi);
+    end
+end
+
+% Rotation matrix corresponding to the end-effector.
+c73 = cos(q(nus5)); s73=sin(q(nus5));
+c72 = cos(q(nus5-1)-pi/2); s72=sin(q(nus5-1)-pi/2);
+c71 = cos(q(nus5-2)); s71=sin(q(nus5-2));
+
+dth73 = dq(nus5); dth72 = dq(nus5-1); dth71 = dq(nus5-2);
+
+rotmp = [c72*c73,              -c72*s73,                   s72
+	c73*s71*s72 + c71*s73,  c71*c73 - s71*s72*s73,    -s71*c72
+	-(c71*c73*s72)+s71*s73, c73*s71+c71*s72*s73,       c71*c72];
+
+rotmpDot = [-c73*s72*dth72-c72*s73*dth73, s72*s73*dth72-c72*c73*dth73, c72*dth72
+	    c71*c73*s72*dth71 - s71*s73*dth71 + c72*c73*s71*dth72 + c71*c73*dth73 - s71*s72*s73*dth73, -c73*s71*dth71 -  c71*s72*s73*dth71 - c72*s71*s73*dth72 -  c73*s71*s72*dth73 - c71*s73*dth73, -c71*c72*dth71 + s71*s72*dth72
+	    c73*s71*s72*dth71 + c71*s73*dth71 - c71*c72*c73*dth72 + c73*s71*dth73 + c71*s72*s73*dth73, c71*c73*dth71 -  s71*s72*s73*dth71 + c71*c72*s73*dth72 + c71*c73*s72*dth73 - s71*s73*dth73, -c72*s71*dth71 - c71*s72*dth72];
+
+% Positions and velocities of the vertices of the moving platform
+
+mpcom = [q(nus5-4);q(nus5-3);q(nus5-5)];
+mpvc  = [dq(nus5-4);dq(nus5-3);dq(nus5-5)];
+
+mpa1 = mpcom + rotmp*[-3/10; -2/5; 1/10];
+mpa2 = mpcom + rotmp*[3/10; -2/5; 1/10];
+mpa3 = mpcom + rotmp*[-3/10; 2/5; 1/10];
+mpa4 = mpcom + rotmp*[3/10; 2/5; 1/10];
+
+mpa = [mpa1, mpa2, mpa3 mpa4];  
+
+mpv1 = mpvc + rotmpDot*[-3/10; -2/5; 1/10];
+mpv2 = mpvc + rotmpDot*[3/10; -2/5; 1/10];
+mpv3 = mpvc + rotmpDot*[-3/10; 2/5; 1/10];
+mpv4 = mpvc + rotmpDot*[3/10; 2/5; 1/10];
+
+mpv = [mpv1, mpv2, mpv3 mpv4];
+
+end
+
