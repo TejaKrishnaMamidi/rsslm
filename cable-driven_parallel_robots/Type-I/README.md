@@ -1,1 +1,1 @@
-This directory contains the codes for forward dynamic analyses of cable-driven parallel robots with feed and retreival of cables following the approach presented in https://doi.org/10.1016/j.mechmachtheory.2023.105338.
+This directory contains the codes for forward dynamic analyses of cable-driven parallel robots with feed and retrieval of cables following the approach presented in [https://doi.org/10.1016/j.mechmachtheory.2023.105338](url).
