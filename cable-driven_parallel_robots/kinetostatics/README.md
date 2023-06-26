@@ -1,1 +1,1 @@
-This directory contains the codes useful for solving the kinetostatic problems of cable-driven parallel robots following the approach presented in [https:doi.org/10.1016/j.mechmachtheory.2021.104381](url).
+This directory contains the codes useful for solving the kinetostatic problems of cable-driven parallel robots following the approach presented in [https://doi.org/10.1016/j.mechmachtheory.2021.104381](url).
